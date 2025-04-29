@@ -1,5 +1,5 @@
 // src/pages/LoginPage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -8,18 +8,27 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      navigate("/home");
+    }
+  }, [navigate]);
+
   // Add a line to save username in localStorage
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/login", {
+      const res = await axios.post("/api/auth/login", {
         username,
         password,
       });
+
       alert(res.data.message);
 
       // Save username locally
       localStorage.setItem("username", res.data.username);
+      localStorage.setItem("userId", res.data.userId); // <-- ADD THIS LINE
 
       navigate("/home");
     } catch (error) {

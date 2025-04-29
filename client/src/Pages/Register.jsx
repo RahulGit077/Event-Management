@@ -1,5 +1,5 @@
 // src/pages/Register.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -8,13 +8,21 @@ function Register() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      navigate("/home");
+    }
+  }, [navigate]);
+
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/register", {
+      const res = await axios.post("/api/auth/register", {
         username,
         password,
       });
+
       alert(res.data.message);
       navigate("/login");
     } catch (error) {
