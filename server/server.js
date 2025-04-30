@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const authRoutes = require("./routes/auth.routes");
-const eventRoutes = require("./routes/event.routes");
+const authRoutes = require("./routes/auth.Routes");
+const eventRoutes = require("./routes/event.Routes");
 
 const app = express();
 
