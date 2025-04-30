@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/user.model");
 
 exports.register = async (req, res) => {
   const { username, password } = req.body;
@@ -27,13 +27,11 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials!" });
     }
 
-    res
-      .status(200)
-      .json({
-        message: "Login successful!",
-        username: user.username,
-        userId: user._id,
-      });
+    res.status(200).json({
+      message: "Login successful!",
+      username: user.username,
+      userId: user._id,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }
